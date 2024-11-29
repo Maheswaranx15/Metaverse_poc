@@ -269,6 +269,16 @@ contract Karmaleague is Ownable {
         emit RewardPointsReduced(user, userData.rewardPoints);
     }
 
+    function karmaAlgorithm() external {
+        //like 0.5
+        //share: 0.75
+        //comment 1
+        // if audience answerquestion:
+        // 1. for try: 1 point
+        // 2. for correct answer: 3points
+        
+    }
+
     function setPostRewardPoints(uint256 newPoints) external onlyOwner {
         postRewardPoints = newPoints;
     }
