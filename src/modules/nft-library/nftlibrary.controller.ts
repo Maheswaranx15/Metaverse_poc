@@ -49,4 +49,4 @@ export class NftLibraryController {
       throw error; // Throw the original error object instead of creating a new one
     }
   }
- }
+}
