@@ -5,7 +5,7 @@ import {
   MintResponseDTO,
   balanceResponseDTO,
 } from './nftLibrary.dto';
-import { NftLibraryService } from './nftLibrary.service';
+import { NftLibraryService } from './tokenLibrary.service';
 
 @ApiTags('nftLibrary')
 @Controller('/tokens')
