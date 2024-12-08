@@ -5,7 +5,7 @@ import { erc20 } from './abi/erc20';
 import {
   MintResponseDTO,
   balanceResponseDTO,
-} from './nftLibrary.dto';
+} from './tokenLibrary.dto';
 
 @Injectable()
 export class NftLibraryService {
