@@ -1,7 +1,7 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
-import { NftLibraryController } from './token.controller';
-import { NftLibraryService } from './token.service';
+import { NftLibraryController } from './nftLibrary.controller';
+import { NftLibraryService } from './nftLibrary.service';
 
 @Module({
   imports: [HttpModule],
