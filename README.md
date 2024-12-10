@@ -28,6 +28,8 @@
 
 ## Project setup
 
+NFT library API's to be integrated with tournament smart contract
+
 ```bash
 $ npm install
 ```
