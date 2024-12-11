@@ -85,10 +85,10 @@ contract Karmaleague is Ownable {
 
     // User deposits tokens and immediately converts to reward points
     function depositTokens(uint256 amount) external {
-        // require(amount == tokenDeposit, "Incorrect token amount");
-        // require(rewardToken.balanceOf(msg.sender) >= amount, "Insufficient token balance");
-        // require(rewardToken.allowance(msg.sender, address(this)) >= amount, "Allowance not set");
-        // rewardToken.transferFrom(msg.sender, address(this), amount);
+        require(amount == tokenDeposit, "Incorrect token amount");
+        require(rewardToken.balanceOf(msg.sender) >= amount, "Insufficient token balance");
+        require(rewardToken.allowance(msg.sender, address(this)) >= amount, "Allowance not set");
+        rewardToken.transferFrom(msg.sender, address(this), amount);
         users[msg.sender].tokensDeposited += amount;
         // Convert deposited tokens to reward points immediately
         uint256 rewardPointsToAdd = (amount / tokenDeposit) * 10; // 5 tokens = 10 reward points
@@ -102,12 +102,12 @@ contract Karmaleague is Ownable {
         require(rewardToken.balanceOf(owner()) >= postDeposit, "Owner has insufficient tokens for posting");
         require(rewardToken.allowance(owner(), address(this)) >= postDeposit, "Owner has not approved enough tokens");
 
-        // rewardToken.transferFrom(owner(), address(this), postDeposit);
+        rewardToken.transferFrom(owner(), address(this), postDeposit);
 
-        // postCounter++;
-        // posts[postCounter] = Post(postCounter, content, user, block.timestamp, 0, 0);
+        postCounter++;
+        posts[postCounter] = Post(postCounter, content, user, block.timestamp, 0, 0);
 
-        // users[user].postsCount++;
+        users[user].postsCount++;
 
         // Deduct 5 reward points as a "borrowing loan" from the user
         if (users[user].rewardPoints >= 5) {
@@ -169,15 +169,15 @@ contract Karmaleague is Ownable {
         require(posts[postId].postId != 0, "Post does not exist");
         require(!hasLikedPost[postId][msg.sender], "User has already liked this post");
 
-        // hasLikedPost[postId][msg.sender] = true;
+        hasLikedPost[postId][msg.sender] = true;
 
-        // likeCounter++;
-        // likes[likeCounter] = Like(likeCounter, postId, msg.sender, block.timestamp);
-        // if(posts[postId].author != msg.sender){
-        //     posts[postId].likesCount++; 
-        //     users[msg.sender].likesCount++;
-        //     users[msg.sender].rewardPoints += likeRewardPoints; 
-        // }
+        likeCounter++;
+        likes[likeCounter] = Like(likeCounter, postId, msg.sender, block.timestamp);
+        if(posts[postId].author != msg.sender){
+            posts[postId].likesCount++; 
+            users[msg.sender].likesCount++;
+            users[msg.sender].rewardPoints += likeRewardPoints; 
+        }
         
         emit Liked(msg.sender, postId, likeCounter);
     }
@@ -261,22 +261,12 @@ contract Karmaleague is Ownable {
 
         require(rewardToken.balanceOf(address(this)) >= tokensToWithdraw, "Insufficient tokens in contract");
 
-        // userData.rewardPoints -= rewardPoints;
+        userData.rewardPoints -= rewardPoints;
 
         rewardToken.transfer(user, tokensToWithdraw);
 
         emit AdminWithdraw(user, tokensToWithdraw);
         emit RewardPointsReduced(user, userData.rewardPoints);
-    }
-
-    function karmaAlgorithm() external {
-        //like 0.5
-        //share: 0.75
-        //comment 1
-        // if audience answerquestion:
-        // 1. for try: 1 point
-        // 2. for correct answer: 3points
-        
     }
 
     function setPostRewardPoints(uint256 newPoints) external onlyOwner {
