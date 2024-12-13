@@ -6,7 +6,6 @@ import {IPoolAddressesProvider} from "@aave/core-v3/contracts/interfaces/IPoolAd
 import {IERC20Detailed} from "@aave/core-v3/contracts/dependencies/openzeppelin/contracts/IERC20Detailed.sol";
 
 
-
 interface IController {
     struct ProfitParams {
         address userAddress;
