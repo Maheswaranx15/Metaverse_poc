@@ -196,24 +196,24 @@ async function getSwapInchTransaction(sellToken, buyToken, amount) {
                 bestPrice = responce.amount;
                 bestdex = 0;
             }
-            // responce = await getOpenoceanSwapData(tokens[index], tokens[index + 1], amountIn/10**await getDecimal(tokens[index]));
-            // if(responce.amount > bestPrice) {
-            //     data = responce.data;
-            //     bestPrice = responce.amount;
-            //     bestdex = 2;
-            // }
+            responce = await getOpenoceanSwapData(tokens[index], tokens[index + 1], amountIn/10**await getDecimal(tokens[index]));
+            if(responce.amount > bestPrice) {
+                data = responce.data;
+                bestPrice = responce.amount;
+                bestdex = 2;
+            }
             responce = await getSwapInchTransaction(tokens[index], tokens[index + 1], amountIn);
             if(responce.amount > bestPrice) {
                 data = responce.data;
                 bestPrice = responce.amount;
                 bestdex = 1;
             }
-            // responce = await getSwapTransaction(tokens[index], tokens[index + 1], amountIn);
-            // if(responce.amount > bestPrice) {
-            //     data = responce.data;
-            //     bestPrice = responce.amount;
-            //     bestdex = 3;
-            // }
+            responce = await getSwapTransaction(tokens[index], tokens[index + 1], amountIn);
+            if(responce.amount > bestPrice) {
+                data = responce.data;
+                bestPrice = responce.amount;
+                bestdex = 3;
+            }
             amountIn = bestPrice;
             bestPrice = 0;
             dex.push(bestdex)
@@ -227,24 +227,24 @@ async function getSwapInchTransaction(sellToken, buyToken, amount) {
                 bestPrice = responce.amount;
                 bestdex = 0;
             }
-            // responce = await getOpenoceanSwapData(tokens[index], tokens[index - 1], amountIn/10**await getDecimal(tokens[index]));
-            // if(responce.amount > bestPrice) {
-            //     data = responce.data;
-            //     bestPrice = responce.amount;
-            //     bestdex = 2;
-            // }
+            responce = await getOpenoceanSwapData(tokens[index], tokens[index - 1], amountIn/10**await getDecimal(tokens[index]));
+            if(responce.amount > bestPrice) {
+                data = responce.data;
+                bestPrice = responce.amount;
+                bestdex = 2;
+            }
             responce = await getSwapInchTransaction(tokens[index], tokens[index - 1], amountIn);
             if(responce.amount > bestPrice) {
                 data = responce.data;
                 bestPrice = responce.amount;
                 bestdex = 1;
             }
-            // responce = await getSwapTransaction(tokens[index], tokens[index-1], amountIn);
-            // if(responce.amount > bestPrice) {
-            //     data = responce.data;
-            //     bestPrice = responce.amount;
-            //     bestdex = 3;
-            // }
+            responce = await getSwapTransaction(tokens[index], tokens[index-1], amountIn);
+            if(responce.amount > bestPrice) {
+                data = responce.data;
+                bestPrice = responce.amount;
+                bestdex = 3;
+            }
             dex.push(bestdex);
             calldata.push(data)
             console.log({buy: bestPrice, bestdex: dex});
